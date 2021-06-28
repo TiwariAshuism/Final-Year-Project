@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -33,6 +34,8 @@
   <!-- CSS Files -->
   <link id="pagestyle" href="./assets/css/soft-design-system.css?v=1.0.4" rel="stylesheet" />
   <link href="./assets/css/style.css" rel="stylesheet" />
+      <script src="./assets/js/jquery-3.6.0.min.js" type="text/javascript"></script>
+
 </head>
 
 <body class="sign-in-illustration">
@@ -152,46 +155,42 @@
             <div class="card card-plain">
               <div class="card-header pb-0 text-left">
                 <h4 class="font-weight-bolder">Register With Us</h4>
-                <p class="mb-0">Enter your Details here </p>
+                <p class="mb-0">Say Hello! Usually, we reply within 2 business days </p>
               </div>
               <div class="card-body">
-                <form role="form">
+              <div class="alert alert-warning" role="alert" id="FormErr" style="display: none;">
+  </div><div class="alert alert-success alert-dismissible" role="alert" id="successReg" style="display: none;"> </div>
+                <form action='./Register.php' method="post" role="form" id="reg-form">
                   <div class="mb-3">
-                    <input type="email" class="form-control form-control-lg" placeholder="Email" aria-label="Email"
-                      aria-describedby="email-addon" />
+                    <input type="text" class="form-control form-control-lg" id="reg-name" placeholder="Name" aria-label="Email"
+                      aria-describedby="email-addon" name="name" />
                   </div>
 
                   <div class="mb-3">
-                    <input type="email" class="form-control form-control-lg" placeholder="Email" aria-label="Email"
-                      aria-describedby="email-addon" />
+                    <input type="email" class="form-control form-control-lg" id="reg-email" placeholder="Email" aria-label="Email"
+                      aria-describedby="email-addon" name="email" />
                   </div>
                   <div class="mb-3">
-                    <input type="email" class="form-control form-control-lg" placeholder="Password"
-                      aria-label="Password" aria-describedby="password-addon" />
+                    <input type="number" class="form-control form-control-lg" id="reg-phone" placeholder="Phone"
+                      aria-label="Password" aria-describedby="password-addon" name='phone' />
                   </div>
-                  <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" id="rememberMe" />
-                    <label class="form-check-label" for="rememberMe">Remember me</label>
-                  </div>
+
                   <div class="text-center">
-                    <button type="button" class="
+                    <button class="
                           btn btn-lg
                           bg-gradient-primary
                           btn-lg
                           w-100
                           mt-4
                           mb-0
-                        ">
-                      Sign in
+                        " id="reg-submit-btn" onclick="register();return false;">
+        Register
                     </button>
                   </div>
                 </form>
               </div>
               <div class="card-footer text-center pt-0 px-lg-2 px-1">
-                <p class="mb-4 text-sm mx-auto">
-                  Don't have an account?
-                  <a href="javascript:;" class="text-primary text-gradient font-weight-bold">Sign up</a>
-                </p>
+
               </div>
             </div>
           </div>
@@ -223,7 +222,7 @@
                 class="position-absolute opacity-4 start-0" />
               <div class="position-relative">
                 <img class="max-width-500 w-100 position-relative z-index-2"
-                  src="./assets/img/illustrations/chat.png" />
+                  src="./assets/img/illustrations/sign-up.png" />
               </div>
               <h4 class="mt-5 text-white font-weight-bolder">
                 "Attention is the new currency"
@@ -259,6 +258,89 @@
   <script src="./assets/js/plugins/choices.min.js"></script>
   <script src="./assets/js/plugins/parallax.min.js"></script>
   <script src="./assets/js/soft-design-system.min.js?v=1.0.4" type="text/javascript"></script>
+    <script>
+    function register()
+{
+        var name=$("#reg-name").val();
+        var mail=$("#reg-email").val();
+        var mobile=$("#reg-phone").val();
+        alert(1)
+        //password
+        
+        var phoneno = /^\d{10}$/;
+        var mailformat = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+        regName = /^[a-zA-Z]+ [a-zA-Z]+$/;
+        
+        console.log(name);
+        
+        
+        $("#reg-form").show();
+          //$("#FormErr").hide();
+          $("#FormErr").show();
+        $("#reg-submit-btn,#reg-form").attr('disabled', true);
+        $("#reg-submit-btn").html('<i class="las la-spinner la-spin"></i>Creating Account...');
+        //$("#reg-submit-btn").attr('class', 'btn btn-success btn-pill  btn-elevate kt-spinner kt-spinner--left kt-spinner--sm kt-spinner--light');
+    
+    
+        //console.log(TOS);
+        //console.log(mail);
+          if(!regName.test(name) && name.length < 5){
+              
+                  $("#FormErr").html("<i class='las la-times-circle'></i> Please enter your full name");
+                  $("#reg-submit-btn").html('Register');
+                  $("#reg-submit-btn").attr('disabled', false);
+                  return false;
+          }
+          else if(!mobile.match(phoneno)) {
+              
+            
+                $("#FormErr").html("<i class='las la-times-circle'></i> Please enter valid Mobile No.");
+                $("#reg-submit-btn").html('Register');
+                $("#reg-submit-btn").attr('disabled', false);
+                return false;
+              
+              }
+          else if(!mail.match(mailformat)){
+            $("#FormErr").html("<i class='las la-times-circle'></i> Please enter valid email Address");
+            $("#reg-submit-btn").html('Register');
+            $("#reg-submit-btn").attr('disabled', false);
+            return false;  
+          }
+          else{
+              
+              
+              //alert(1);
+              
+              $.post("connector/register.php",{name:name,email:mail,phone:mobile},function (dt,s) 
+              {
+                  //console.log(dt);
+                  var d =dt;
+                  console.log(d);
+                  if(d['success']==true)
+                  {
+                      $("#successReg").show();
+                      $("#successReg").html("<i class='las la-check'></i> &nbsp; Registration Successful, Check your mobile and email for the confirmation.");
+                      $("#FormErr,#reg-form,#reg-submit-btn").hide();
+                      //location.replace('index.php');
+                  }else
+                  {
+                        $("#FormErr").show();
+                        $("#FormErr").html("<i class='las la-times-circle'></i> "+d['message']+"");
+                        $("#reg-submit-btn").html('Register');
+                        $("#reg-submit-btn").attr('disabled', false);
+                  }
+              });
+      
+                $("#FormErr").hide();
+                $("#reg-submit-btn").attr('disabled', false); 
+                return true;
+              
+            } 
+        
+
+
+      }
+    </script>
 </body>
 
 </html>
