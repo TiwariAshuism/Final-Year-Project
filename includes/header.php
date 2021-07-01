@@ -6,7 +6,7 @@
                 <div class="container-fluid">
                    <a class="navbar-brand font-weight-bolder ms-sm-3"
                       href="../index.php" rel="tooltip"
-                      title="Designed and Coded by Creative Tim" data-placement="bottom" target="_blank">
+                      data-placement="bottom" target="_blank">
                       Charity
                    </a>
                    <button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse"
@@ -22,15 +22,15 @@
                       <ul class="navbar-nav navbar-nav-hover ms-lg-12 ps-lg-5 w-100">
                          <li class="nav-item  mx-2">
                             <a class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center"
-                               id="dropdownMenuPages" data-bs-toggle="dropdown" aria-expanded="false"
-                               href="../index.html">
+                               id="dropdownMenuPages" 
+                               href="./index.php">
                                Home
 
                             </a>
                          </li>
                          <li class="nav-item  mx-2">
                             <a class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center"
-                               id="dropdownMenuPages" data-bs-toggle="dropdown" aria-expanded="false"
+                               id="dropdownMenuPages" 
                                href="./Register.php">
                                Register
 
@@ -38,9 +38,9 @@
                          </li>
                          <li class="nav-item  mx-2">
                             <a class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center"
-                               id="dropdownMenuPages" data-bs-toggle="dropdown" aria-expanded="false"
-                               href="./Contact.php">
-                               Contact Us
+                               id="dropdownMenuPages" 
+                               href="./Donate.php">
+                               Donate
 
                             </a>
                          </li>

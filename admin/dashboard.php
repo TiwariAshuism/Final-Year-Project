@@ -43,7 +43,7 @@ $row=mysqli_fetch_array($result);
       <div class="sidebar-wrapper">
         <ul class="nav">
           <li class="nav-item active  ">
-            <a class="nav-link" href="./dashboard.html">
+            <a class="nav-link" href="./dashboard.php">
               <i class="material-icons">dashboard</i>
               <p>Dashboard</p>
             </a>
@@ -55,7 +55,7 @@ $row=mysqli_fetch_array($result);
             </a>
           </li>-->
           <li class="nav-item ">
-            <a class="nav-link" href="./tables.html">
+            <a class="nav-link" href="./tables.php">
               <i class="material-icons">content_paste</i>
               <p>Table List</p>
             </a>
@@ -268,7 +268,7 @@ foreach($results as $row)
                         
                         <tbody>
                            <?php
-$sql="SELECT message from message";
+$sql="SELECT `email_sub`,`date` FROM `news` ORDER BY CAST(`email_sub` AS UNSIGNED) DESC LIMIT 3;";
 $query = $dbh -> prepare($sql);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
@@ -290,15 +290,10 @@ foreach($results as $row)
                               </div>
                                           
               
-                             <td><?php  echo htmlentities($row->message);?></td>
+                             <td><?php  echo htmlentities($row->email_sub);?></td>
                             <td class="td-actions text-right">
-                              <button type="button" rel="tooltip" title="Edit Task"
-                                class="btn btn-white btn-link btn-sm">
-                                <i class="material-icons">edit</i>
-                              </button>
-                              <button type="button" rel="tooltip" title="Remove" class="btn btn-white btn-link btn-sm">
-                                <i class="material-icons">close</i>
-                              </button>
+                              <?php  echo htmlentities($row->date);?>
+                            
                             </td>
                           </tr>
 <?php $cnt=$cnt+1;}} ?>   

@@ -401,49 +401,20 @@
                       Your company may not be in the software business,
                       but eventually, a software company will be in your business.
                    </p>
-                   <?php
-    
-$showAlert = false; 
-$showError = false; 
-$exists=false;
-    
-if($_SERVER["REQUEST_METHOD"] == "POST") {
-      
-    // Include file which makes the
-    // Database Connection.
-    include './includes/dbconnect.php';   
-    
-    $name = $_POST["name"]; 
-            
-    
-    $sql = "Select * from register where name='$name'";
-    
-    $result = mysqli_query($conn, $sql);
-    
-    $num = mysqli_num_rows($result); 
-    
-
-            $sql = "INSERT INTO `register` ( `name`, 
-                `email`, `phone`,`date`) VALUES ('$name', 
-                '$email','$phone', current_timestamp())";
-    
-            $result = mysqli_query($conn, $sql);
-          
-          }  
-    
-?>
-                   <form action='./index.php' method="POST" role="form">
+ <div class="alert alert-warning" role="alert" id="FormErr" style="display: none;">
+  </div><div class="alert alert-success alert-dismissible" role="alert" id="successReg" style="display: none;"> </div>
+                   <form action='./index.php' method="POST" role="form" id="reg-form">
                       <div class="row">
                          <div class="col-8">
                             <div class="input-group">
                                <input type="text" name="news" required class="form-control mb-sm-0"
-                                  placeholder="Your Message Here..." autocomplete="off">
+                                  placeholder="Your Message Here..." autocomplete="off" id="reg-name">
                             </div>
                          </div>
                    </form>
                    <div class="col-4 ps-0">
                       <button type="submit" class="btn bg-gradient-info mb-0 h-100 position-relative z-index-2"
-                         value="Subscribe">Send Message</button>
+                         value="Subscribe" id="reg-submit-btn" onclick="register();return false">Send Message</button>
                    </div>
                 </div>
              </div>
@@ -620,7 +591,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                       <h3>Small Help</h3>
                       <h4><sup>₹</sup>100<span> / </span></h4>
                       <div class="btn-wrap">
-                         <a href="#" class="btn-buy">Donate</a>
+                         <a href="#" class="btn-buy" onclick="pay100()">Donate</a>
                       </div>
                    </div>
                 </div>
@@ -629,7 +600,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                       <h3>Average Help</h3>
                       <h4><sup>₹</sup>250<span> / </span></h4>
                       <div class="btn-wrap">
-                         <a href="#" class="btn-buy">Donate</a>
+                         <a href="#" class="btn-buy" onclick="pay250()">Donate</a>
                       </div>
                    </div>
                 </div>
@@ -638,7 +609,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                       <h3>Help With Food</h3>
                       <h4><sup>₹</sup>500<span> / </span></h4>
                       <div class="btn-wrap">
-                         <a href="#" class="btn-buy">Donate</a>
+                         <a href="#" class="btn-buy" onclick="pay500()">Donate</a>
                       </div>
                    </div>
                 </div>
@@ -648,7 +619,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                       <h3>Ultimate Help</h3>
                       <h4><sup>₹</sup>1000<span> /</span></h4>
                       <div class="btn-wrap">
-                         <a href="#" class="btn-buy">Donate</a>
+                         <a href="#" class="btn-buy" onclick="pay1000()">Donate</a>
                       </div>
                    </div>
                 </div>
@@ -768,6 +739,67 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
           class="bi bi-arrow-up-short"></i></a>
     <!-- Vendor JS Files -->
     <?php include 'includes/links.php';?>
+     <script>
+    function register()
+{
+        var name=$("#reg-name").val();
+        regName = /^[a-zA-Z]+ [a-zA-Z]+$/;
+        
+        //console.log(name);
+        $("#reg-form").show();
+          //$("#FormErr").hide();
+          $("#FormErr").show();
+        $("#reg-submit-btn,#reg-form").attr('disabled', true);
+        $("#reg-submit-btn").html('<i class="las la-spinner la-spin"></i>sending...');
+        //$("#reg-submit-btn").attr('class', 'btn btn-success btn-pill  btn-elevate kt-spinner kt-spinner--left kt-spinner--sm kt-spinner--light');
+    
+    
+        //console.log(TOS);
+        //console.log(mail);
+          if(!regName.test(name) && name.length < 5){
+              
+                  $("#FormErr").html("<i class='las la-times-circle'></i> Please enter more content");
+                  $("#reg-submit-btn").html('Register');
+                  $("#reg-submit-btn").attr('disabled', false);
+                  return false;
+          }
+          
+          else{
+              
+              
+             // alert(1);
+              
+              $.post("./connector/News.php",{name:name},function (dt,s) 
+              {
+                  //console.log(dt);
+                  var d =dt;
+                  console.log(d);
+                  if(d['success']==true)
+                  {
+                      $("#successReg").show();
+                      $("#successReg").html("<i class='las la-check'></i> &nbsp; Message Sent Successfully");
+                      $("#FormErr,#reg-form,#reg-submit-btn").hide();
+                      //location.replace('index.php');
+                  }else
+                  {
+                        $("#FormErr").show();
+                        $("#FormErr").html("<i class='las la-times-circle'></i> "+d['message']+"");
+                        $("#reg-submit-btn").html('Register');
+                        $("#reg-submit-btn").attr('disabled', false);
+                  }
+              });
+      
+                $("#FormErr").hide();
+                $("#reg-submit-btn").attr('disabled', false); 
+                return true;
+              
+            } 
+        
+
+
+      }
+    </script>
+    
  </body>
 
  </html>

@@ -1,5 +1,5 @@
   <?php
-    
+    $apiKey = "rzp_test_WOfoZxSSrSGqFz";
 $showAlert = false; 
 $showError = false; 
 $exists=false;
@@ -114,7 +114,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     </table>
                
             </div>
-           <button type="button" class="btn btn-primary btn-lg btn-block">Register Now</button>
+           <button type="button" class="btn btn-primary btn-lg btn-block"> <a href="./Register.php" style="color:white";>Register Now</a> </button>
 
           </div>
         </div>
@@ -132,8 +132,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         <tr>
             <td>
             <ol>
-            <li><p>Fill and Submit the Registration Form.</p></li><a class="nav-link scrollto" href="#pricing"><button type="button" class="btn btn-primary">Form Link</button></a>
-            <li><p>After submission, Click on Fee payment link.</p></li><a class="nav-link scrollto" href="#pricing"><button type="button" class="btn btn-primary">Paymeny Link</button></a><br>
+            <li><p>Fill and Submit the Registration Form.</p></li><a class="nav-link scrollto" href="./Register.php"><button type="button" class="btn btn-primary">Form Link</button></a>
+            <li><p>After submission, Click on Fee payment link.</p></li><a class="nav-link scrollto"><button type="button" onclick="pay()" class="btn btn-primary">Paymeny Link</button></a><br>
             <li><p>Complete the payment.</p></li><br>
             <li>You are Done!
 </p></li><br>
@@ -160,7 +160,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                       <h3>Small Help</h3>
                       <h4><sup>₹</sup>100<span> / </span></h4>
                       <div class="btn-wrap">
-                         <a href="#" class="btn-buy">Donate</a>
+                         <a href="#" class="btn-buy" onclick="pay100()">Donate</a>
                       </div>
                    </div>
                 </div>
@@ -169,7 +169,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                       <h3>Average Help</h3>
                       <h4><sup>₹</sup>250<span> / </span></h4>
                       <div class="btn-wrap">
-                         <a href="#" class="btn-buy">Donate</a>
+                         <a href="#" class="btn-buy" onclick="pay250()">Donate</a>
                       </div>
                    </div>
                 </div>
@@ -178,7 +178,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                       <h3>Help With Food</h3>
                       <h4><sup>₹</sup>500<span> / </span></h4>
                       <div class="btn-wrap">
-                         <a href="#" class="btn-buy">Donate</a>
+                         <a href="#" class="btn-buy" onclick="pay500()">Donate</a>
                       </div>
                    </div>
                 </div>
@@ -188,51 +188,110 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                       <h3>Ultimate Help</h3>
                       <h4><sup>₹</sup>1000<span> /</span></h4>
                       <div class="btn-wrap">
-                         <a href="#" class="btn-buy">Donate</a>
+                         <a href="#" class="btn-buy" onclick="pay1000()">Donate</a>
                       </div>
                    </div>
                 </div>
              </div>
           </div>
        </section>
-    <div class="my-5 pt-5" syt>
-          <div class="container">
-             <div class="row">
-                <div class="col-md-6 m-auto">
-                   <h4>Be the first to see the news</h4>
-                   <p class="mb-4">
-                      Your company may not be in the software business,
-                      but eventually, a software company will be in your business.
-                   </p>
-                   <form action='./index.php' method="POST" role="form">
-                      <div class="row">
-                         <div class="col-8">
-                            <div class="input-group">
-                               <input type="text" name="news" required class="form-control mb-sm-0"
-                                  placeholder="Your Message Here..." autocomplete="off">
-                            </div>
-                         </div>
-                   </form>
-                   <div class="col-4 ps-0">
-                      <button type="submit" class="btn bg-gradient-info mb-0 h-100 position-relative z-index-2"
-                         value="Subscribe">Send Message</button>
-                   </div>
-                </div>
-             </div>
-             <div class="col-md-5 ms-auto">
-                <div class="position-relative">
-                   <img class="max-width-50 w-100 position-relative z-index-2"
-                      src="./assets/img/illustrations/sign-up.png" alt="image">
-                </div>
-             </div>
-          </div>
-       </div>
-       </div>
 <?php include './includes/footer.php'; ?>
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
           class="bi bi-arrow-up-short"></i></a>
     <!-- Vendor JS Files -->
     <?php include 'includes/links.php';?>
+
+    <script>
+    function pay()
+    {
+        var options = {
+        "key": "<?php echo $apiKey;?>", // Enter the Key ID generated from the Dashboard
+        "amount":"100000", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+        "currency": "INR",
+        "name": "Ashu",
+        "description": "Donate Transaction",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjocfAiPmkzqDQu_tmtXKQPauoSBwQIwT1iDtMsAPA2SPucnhwVz-k9-rplQqmWDUI5uA&usqp=CAU",
+        "handler": function (response){
+          alert("hello");
+        }
+    };
+    var rzp1 = new Razorpay(options);
+    rzp1.open();
+     }
+</script>
+<script>
+    function pay100()
+    {
+        var options = {
+        "key": "<?php echo $apiKey;?>", // Enter the Key ID generated from the Dashboard
+        "amount":"10000", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+        "currency": "INR",
+        "name": "Ashu",
+        "description": "Donate Transaction",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjocfAiPmkzqDQu_tmtXKQPauoSBwQIwT1iDtMsAPA2SPucnhwVz-k9-rplQqmWDUI5uA&usqp=CAU",
+        "handler": function (response){
+          alert("hello");
+        }
+    };
+    var rzp1 = new Razorpay(options);
+    rzp1.open();
+     }
+</script>
+<script>
+    function pay250()
+    {
+        var options = {
+        "key": "<?php echo $apiKey;?>", // Enter the Key ID generated from the Dashboard
+        "amount":"25000", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+        "currency": "INR",
+        "name": "Ashu",
+        "description": "Donate Transaction",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjocfAiPmkzqDQu_tmtXKQPauoSBwQIwT1iDtMsAPA2SPucnhwVz-k9-rplQqmWDUI5uA&usqp=CAU",
+        "handler": function (response){
+          alert("hello");
+        }
+    };
+    var rzp1 = new Razorpay(options);
+    rzp1.open();
+     }
+</script>
+<script>
+    function pay500()
+    {
+        var options = {
+        "key": "<?php echo $apiKey;?>", // Enter the Key ID generated from the Dashboard
+        "amount":"50000", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+        "currency": "INR",
+        "name": "Ashu",
+        "description": "Donate Transaction",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjocfAiPmkzqDQu_tmtXKQPauoSBwQIwT1iDtMsAPA2SPucnhwVz-k9-rplQqmWDUI5uA&usqp=CAU",
+        "handler": function (response){
+          alert("hello");
+        }
+    };
+    var rzp1 = new Razorpay(options);
+    rzp1.open();
+     }
+</script>
+<script>
+    function 1000()
+    {
+        var options = {
+        "key": "<?php echo $apiKey;?>", // Enter the Key ID generated from the Dashboard
+        "amount":"100000", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+        "currency": "INR",
+        "name": "Ashu",
+        "description": "Donate Transaction",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjocfAiPmkzqDQu_tmtXKQPauoSBwQIwT1iDtMsAPA2SPucnhwVz-k9-rplQqmWDUI5uA&usqp=CAU",
+        "handler": function (response){
+          alert("hello");
+        }
+    };
+    var rzp1 = new Razorpay(options);
+    rzp1.open();
+     }
+</script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </body>
 
 </html>

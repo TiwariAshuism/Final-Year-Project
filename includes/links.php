@@ -17,4 +17,4 @@
       <script src="./assets/js/plugins/choices.min.js"></script>
       <script src="./assets/js/plugins/parallax.min.js"></script>
       <script src="./assets/js/soft-design-system.min.js?v=1.0.4" type="text/javascript"></script>
-      <s
+      <script src="./assets/js/jquery-3.6.0.min.js"></script>
